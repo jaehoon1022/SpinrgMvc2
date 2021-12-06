@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form method="get" th:object="${testItem}">
+        <div>체크박스 - 단일</div>
+        <div>
+            <input type="checkbox" id="open" th:field="*{open}" />
+            <label for="open">체크박스 테스트</label>
+        </div>
+        <div>체크박스 - 멀티</div>
+        <div th:each="fruit : ${fruits}">
+            <input type="checkbox" th:field="*{fruits}" th:value="${fruit.key}" /> <!-- 여기서의 fruits는 testItem 의 fruits -->
+            <label th:for="${#ids.prev('fruits')}" th:text="${fruit.value}">과일</label>
+        </div>
+        <button type="submit">전송</button>
+    </form>
+
+</body>
+</html>
