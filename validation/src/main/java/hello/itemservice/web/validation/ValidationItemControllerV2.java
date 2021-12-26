@@ -30,6 +30,7 @@ public class ValidationItemControllerV2 {
 
     @InitBinder
     public void init(WebDataBinder dataBinder) {
+        log.info("init binder {}", dataBinder);
         dataBinder.addValidators(itemValidator);
     }
 
@@ -53,7 +54,7 @@ public class ValidationItemControllerV2 {
         return "validation/v2/addForm";
     }
 
-//    @PostMapping("/add")
+    @PostMapping("/add")
     public String addItemV1(@ModelAttribute Item item, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
 
         //검증 오류 결과를 보관
@@ -63,7 +64,6 @@ public class ValidationItemControllerV2 {
         }
         if (item.getPrice() == null || item.getPrice() < 1000 || item.getPrice() > 1000000) {
             bindingResult.addError(new FieldError("item", "price", "가격은 1,000 ~ 1,000,000 까지 허용합니다."));
-
         }
         if (item.getQuantity() == null || item.getQuantity() >= 9999) {
             bindingResult.addError(new FieldError("item", "quantity", "수량은 최대 9,999 까지 허용합니다."));
@@ -73,7 +73,7 @@ public class ValidationItemControllerV2 {
         if (item.getPrice() != null && item.getQuantity() != null) {
             int resultPrice = item.getPrice() * item.getQuantity();
             if (resultPrice < 10000) {
-                bindingResult.addError(new ObjectError("item", "가격 * 수량의 합은 10,000원 이상이어야 합니다. 현재 값 = " + resultPrice));
+                bindingResult.addError(new ObjectError("item", "가격 * 수량의 합은 10,000원 이상이어야 합니다. 현재 값1 = " + resultPrice));
             }
         }
 
@@ -219,7 +219,7 @@ public class ValidationItemControllerV2 {
             redirectAttributes.addAttribute("status", true);
             return "redirect:/validation/v2/items/{itemId}";
         }
-        @PostMapping("/add")
+//        @PostMapping("/add")
         public String addItemV6(@Validated @ModelAttribute Item item, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
 
 

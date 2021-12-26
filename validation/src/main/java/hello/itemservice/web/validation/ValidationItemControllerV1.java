@@ -75,9 +75,9 @@ public class ValidationItemControllerV1 {
 
         //성공 로직
         Item savedItem = itemRepository.save(item);
-        redirectAttributes.addAttribute("itemId", savedItem.getId());
-        redirectAttributes.addAttribute("status", true);
-        return "redirect:/validation/v1/items/{itemId}";
+        redirectAttributes.addAttribute("itemId", savedItem.getId()); //PathVariable
+        redirectAttributes.addAttribute("status", true); //QueryParameter
+        return "redirect:/validation/v1/items/{itemId}";    //PRG 패턴 POST, REDIRECT, GET
     }
 
     @GetMapping("/{itemId}/edit")
@@ -92,6 +92,5 @@ public class ValidationItemControllerV1 {
         itemRepository.update(itemId, item);
         return "redirect:/validation/v1/items/{itemId}";
     }
-
 }
 
